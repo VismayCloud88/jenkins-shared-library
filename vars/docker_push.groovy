@@ -1,6 +1,6 @@
 def call(Map config) {
-    withCredentials([usernamePassword(credentialsId: config.credentialsId, usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-        sh "echo '${PASS}' | docker login -u '${USER}' --password-stdin"
+    withCredentials([usernamePassword(credentialsId: config.credentialsId, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+        sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
         sh "docker push ${config.imageName}:${config.tag}"
     }
 }
